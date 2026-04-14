@@ -18,6 +18,7 @@ public class LoginPage {
         driver.get("https://www.saucedemo.com");
     }
 
+    // Use this for VALID login — navigates to ProductsPage
     public ProductsPage loginAs(String username, String password) {
         WaitUtils.waitForVisible(driver, usernameField);
         driver.findElement(usernameField).sendKeys(username);
@@ -25,6 +26,15 @@ public class LoginPage {
         WaitUtils.waitForClickable(driver, loginButton);
         driver.findElement(loginButton).click();
         return new ProductsPage(driver);
+    }
+
+    // Use this for INVALID login — stays on login page, no redirect expected
+    public void attemptLogin(String username, String password) {
+        WaitUtils.waitForVisible(driver, usernameField);
+        driver.findElement(usernameField).sendKeys(username);
+        driver.findElement(passwordField).sendKeys(password);
+        WaitUtils.waitForClickable(driver, loginButton);
+        driver.findElement(loginButton).click();
     }
 
     public String getErrorMessage() {
